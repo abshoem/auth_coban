@@ -59,5 +59,28 @@ namespace CrudAuthenAuthortruyenthong.Controllers
             return Ok(users);
         }
 
+        [Authorize(Roles= "Admin")]
+        [HttpPost("deleteuser/{id}")]
+
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _db.Users.SingleOrDefaultAsync(uId => uId.Id == id);
+            if (user == null)
+            {
+                throw new Exception("Người dùng không tồn tại");
+            }
+            _db.Users.Remove(user);
+            await _db.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Xóa người dùng thành công"
+            });
+
+
+
+        }
+
+
     }
 }
