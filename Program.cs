@@ -1,4 +1,5 @@
 using CrudAuthenAuthortruyenthong.Data;
+using CrudAuthenAuthortruyenthong.Middlewares;
 using CrudAuthenAuthortruyenthong.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -60,6 +61,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddAuthorization();
     
 var app = builder.Build();
+
+app.UseMiddleware<LoggingMiddleware>();
+app.UseMiddleware<ExceptionHandler>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
