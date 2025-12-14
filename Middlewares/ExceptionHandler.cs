@@ -1,4 +1,4 @@
-﻿namespace CrudAuthenAuthortruyenthong.Middlewares
+namespace CrudAuthenAuthortruyenthong.Middlewares
 {
     public class ExceptionHandler
     {
@@ -19,7 +19,7 @@
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "có lỗi xảy ra {message}", ex.Message);
+                _logger.LogError(ex, "có lỗi xảy ra");
 
 
                 if (!context.Response.HasStarted)
@@ -30,7 +30,7 @@
                     var response = new
                     {
                         Success = false,
-                        Message = "Có lỗi xảy ra từ server",
+                        Message = "Có lỗi xảy ra",
                         Error = ex.Message
                     };
 

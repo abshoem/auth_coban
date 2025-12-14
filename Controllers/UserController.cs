@@ -1,10 +1,12 @@
-﻿using CrudAuthenAuthortruyenthong.Data;
+using CrudAuthenAuthortruyenthong.Data;
 using CrudAuthenAuthortruyenthong.Models.Dto;
 using CrudAuthenAuthortruyenthong.Models.Entities;
+using CrudAuthenAuthortruyenthong.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CrudAuthenAuthortruyenthong.Controllers
 {
@@ -13,13 +15,15 @@ namespace CrudAuthenAuthortruyenthong.Controllers
     public class UserController : ControllerBase
     {
         private readonly AppDbContext _db;
+        private readonly IAuthService _auth;
 
-        public UserController(AppDbContext db)
+        public UserController(AppDbContext db, IAuthService auth)
         {
             _db = db;
+            _auth = auth;
         }
         [Authorize]
-        [HttpGet("me")]
+        [HttpGet("getProfile")]
         public IActionResult getProfile()
         {
             var pro5 = User.Claims.Select(p => new
@@ -44,7 +48,7 @@ namespace CrudAuthenAuthortruyenthong.Controllers
 
         public async Task<IActionResult> ListUser()
         {
-            var users =  _db.Users.Where(role => role.Role == UserRole.User).Select(u => new UserResponse
+            var users = await _db.Users.Where(role => role.Role == UserRole.User).Select(u => new UserResponse
             {
                 Id = u.Id,
                 Username = u.Username,
@@ -76,10 +80,30 @@ namespace CrudAuthenAuthortruyenthong.Controllers
             {
                 message = "Xóa người dùng thành công"
             });
-
-
-
         }
+
+        [Authorize]
+        [HttpPost("changepassword")]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto dto)
+        {
+            var userName = User.FindFirst(ClaimTypes.Name)?.Value;
+            if (userName == null)
+            {
+                return BadRequest();
+            }
+
+            await _auth.ChangePassWord(userName, dto.CurrentPassword, dto.NewPassword);
+
+            return Ok(new
+            {
+                message = "đổi mật khẩu thành công"
+            });
+
+
+
+        } 
+
+        
 
 
     }

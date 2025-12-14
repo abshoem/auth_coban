@@ -1,4 +1,4 @@
-﻿using CrudAuthenAuthortruyenthong.Data;
+using CrudAuthenAuthortruyenthong.Data;
 using CrudAuthenAuthortruyenthong.Models.Dto;
 using BCrypt.Net;
 using Microsoft.AspNetCore.Identity;
@@ -77,5 +77,34 @@ namespace CrudAuthenAuthortruyenthong.Services
             await _context.SaveChangesAsync();
 
         }
+
+        public async Task ChangePassWord(string username, string currentPassword, string newPassword)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Username == username);
+            
+            if (currentPassword == newPassword)
+            {
+                throw new Exception("Mật khẩu mới không được trùng với mật khẩu hiện tại");
+            }
+
+            if (user == null )
+            {
+                throw new Exception("không thấy người dùng");
+            }
+
+            if (!BCrypt.Net.BCrypt.Verify(currentPassword, user.PasswordHash))
+            {
+                throw new Exception("Mật khẩu hiện tại không đúng");
+            }
+
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+
+            await _context.SaveChangesAsync();
+
+        }
+
+
+
+
     }
 }

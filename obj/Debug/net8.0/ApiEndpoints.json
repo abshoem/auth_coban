@@ -59,8 +59,40 @@
   },
   {
     "ContainingType": "CrudAuthenAuthortruyenthong.Controllers.UserController",
-    "Method": "ListUser",
-    "RelativePath": "api/User/listuser",
+    "Method": "ChangePassword",
+    "RelativePath": "api/User/changepassword",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "CrudAuthenAuthortruyenthong.Models.Dto.ChangePasswordDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CrudAuthenAuthortruyenthong.Controllers.UserController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/User/deleteuser/{id}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CrudAuthenAuthortruyenthong.Controllers.UserController",
+    "Method": "getProfile",
+    "RelativePath": "api/User/getProfile",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -69,8 +101,8 @@
   },
   {
     "ContainingType": "CrudAuthenAuthortruyenthong.Controllers.UserController",
-    "Method": "getProfile",
-    "RelativePath": "api/User/me",
+    "Method": "ListUser",
+    "RelativePath": "api/User/listuser",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

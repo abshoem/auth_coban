@@ -3,6 +3,7 @@ using CrudAuthenAuthortruyenthong.Data;
 using CrudAuthenAuthortruyenthong.Models.Dto;
 using CrudAuthenAuthortruyenthong.Models.Entities;
 using CrudAuthenAuthortruyenthong.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -42,6 +43,9 @@ namespace CrudAuthenAuthortruyenthong.Controllers
             var result = await _auth.RefreshTokenAsync(dto.RefreshToken);
             return Ok(result);
         }
+
+
+       
 
 
     }

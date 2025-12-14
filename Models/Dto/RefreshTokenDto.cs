@@ -1,4 +1,4 @@
-﻿namespace CrudAuthenAuthortruyenthong.Models.Dto
+namespace CrudAuthenAuthortruyenthong.Models.Dto
 {
     public class RefreshTokenDto
     {
