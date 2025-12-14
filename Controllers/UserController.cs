@@ -1,4 +1,5 @@
 ﻿using CrudAuthenAuthortruyenthong.Data;
+using CrudAuthenAuthortruyenthong.Models.Dto;
 using CrudAuthenAuthortruyenthong.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -43,7 +44,14 @@ namespace CrudAuthenAuthortruyenthong.Controllers
 
         public async Task<IActionResult> ListUser()
         {
-            var users = await _db.Users.Where(role => role.Role == UserRole.User).ToListAsync();
+            var users = await _db.Users.Where(role => role.Role == UserRole.User).Select(u => new UserResponse
+            {
+                Id = u.Id,
+                Username = u.Username,
+                Role = u.Role.ToString()
+               
+            }).ToListAsync();
+            
             if (users == null)
             {
                 return NotFound("lỗi");
