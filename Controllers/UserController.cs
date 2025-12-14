@@ -44,7 +44,7 @@ namespace CrudAuthenAuthortruyenthong.Controllers
 
         public async Task<IActionResult> ListUser()
         {
-            var users = await _db.Users.Where(role => role.Role == UserRole.User).Select(u => new UserResponse
+            var users =  _db.Users.Where(role => role.Role == UserRole.User).Select(u => new UserResponse
             {
                 Id = u.Id,
                 Username = u.Username,
