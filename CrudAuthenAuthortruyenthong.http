@@ -1,0 +1,6 @@
+@CrudAuthenAuthortruyenthong_HostAddress = http://localhost:5117
+
+GET {{CrudAuthenAuthortruyenthong_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
